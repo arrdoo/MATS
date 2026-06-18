@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Paiement</title>
+  <style>
+    :root{--bg:#eef3f8;--card:#ffffff;--primary:#0d6efd;--primary-soft:#dce7ff}
+    html,body{height:100%;margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:var(--bg)}
+    .container{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+    .card{width:420px;background:var(--card);padding:28px;border-radius:14px;box-shadow:0 12px 28px rgba(16,40,86,.1)}
+    h1{font-size:22px;margin:0 0 20px;color:#112448}
+    label{display:block;font-size:13px;color:#3b4f6b;margin-top:14px}
+    input,select{width:100%;padding:11px 14px;margin-top:6px;border:1px solid #d8e1ec;border-radius:9px;background:#fff;font-size:14px;box-sizing:border-box}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .actions{margin-top:22px;display:flex;gap:12px}
+    button{flex:1;padding:12px 14px;border:0;border-radius:10px;background:var(--primary);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+    .reset{background:var(--primary-soft);color:#0b3a7a;border:1px solid #c7d9ff}
+    .error{display:none;margin-top:12px;color:#bd1a1f;font-size:13px}
+    .note{margin-top:12px;font-size:13px;color:#5f6d84;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <form id="paymentForm" class="card" novalidate>
+      <h1>Paiement</h1>
+      <label for="matricule">Matricule</label>
+      <input id="matricule" name="matricule" type="text" placeholder="Matricule" autocomplete="off" />
+
+      <div class="row">
+        <div>
+          <label for="filiere">Filière</label>
+          <input id="filiere" name="filiere" type="text" placeholder="Filière" autocomplete="off" />
+        </div>
+        <div>
+          <label for="niveau">Niveau</label>
+          <select id="niveau" name="niveau">
+            <option value="">-- Choisir un niveau --</option>
+            <option value="1ere">1ère année</option>
+            <option value="2eme">2ème année</option>
+            <option value="3eme">3ème année</option>
+            <option value="master">Master</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="montant">Montant</label>
+      <input id="montant" name="montant" type="number" placeholder="Montant" min="0" step="0.01" autocomplete="off" />
+
+      <label for="objet">Objet</label>
+      <input id="objet" name="objet" type="text" placeholder="Objet du paiement" autocomplete="off" />
+
+      <label for="date">Date</label>
+      <input id="date" name="date" type="date" />
+
+      <div class="actions">
+        <button type="submit">Enregistrer</button>
+        <button type="button" class="reset" id="resetBtn">Effacer</button>
+      </div>
+
+      <div class="error" id="formError"></div>
+      <p class="note">Formulaire local uniquement, aucune donnée n'est envoyée au serveur.</p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('paymentForm');
+    const matricule = document.getElementById('matricule');
+    const filiere = document.getElementById('filiere');
+    const niveau = document.getElementById('niveau');
+    const montant = document.getElementById('montant');
+    const objet = document.getElementById('objet');
+    const date = document.getElementById('date');
+    const error = document.getElementById('formError');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function showError(message) {
+      error.textContent = message;
+      error.style.display = message ? 'block' : 'none';
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      showError('');
+
+      if (!matricule.value.trim()) { showError('Veuillez saisir le matricule.'); matricule.focus(); return; }
+      if (!filiere.value.trim()) { showError('Veuillez saisir la filière.'); filiere.focus(); return; }
+      if (!niveau.value) { showError('Veuillez choisir le niveau.'); niveau.focus(); return; }
+      if (!montant.value || Number(montant.value) <= 0) { showError('Veuillez saisir un montant valide.'); montant.focus(); return; }
+      if (!objet.value.trim()) { showError('Veuillez saisir l\'objet du paiement.'); objet.focus(); return; }
+      if (!date.value) { showError('Veuillez choisir une date.'); date.focus(); return; }
+
+      alert(`Paiement enregistré : ${matricule.value.trim()} - ${filiere.value.trim()} (${niveau.options[niveau.selectedIndex].text})`);
+      form.reset();
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      showError('');
+    });
+  </script>
+</body>
+</html>
+.
