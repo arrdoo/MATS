@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Connexion</title>
+	<style>
+		:root{--bg:#f4f7fb;--card:#ffffff;--accent:#0b78e3}
+		html,body{height:100%;margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:var(--bg)}
+		.wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
+		.card{width:360px;background:var(--card);padding:24px;border-radius:10px;box-shadow:0 6px 18px rgba(12,30,60,.08)}
+		h1{font-size:20px;margin:0 0 16px;color:#132238}
+		label{display:block;font-size:13px;color:#3b4a63;margin-top:10px}
+		input[type=text],input[type=password],select{width:100%;padding:10px 12px;margin-top:6px;border:1px solid #d7e0ea;border-radius:6px;font-size:14px;box-sizing:border-box}
+		.actions{margin-top:18px;display:flex;gap:8px}
+		button{flex:1;padding:10px 12px;border:0;border-radius:8px;background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
+		.btn-secondary{background:#eef5ff;color:#0b3c6b;font-weight:600;border:1px solid #d7eaff}
+		.note{font-size:13px;color:#66748a;margin-top:12px;text-align:center}
+		.error{color:#b00020;font-size:13px;margin-top:8px;display:none}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<form id="loginForm" class="card" novalidate>
+			<h1>Se connecter</h1>
+			<label for="identifiant">Identifiant</label>
+			<input id="identifiant" name="identifiant" type="text" placeholder="Votre identifiant" autocomplete="username" />
+
+			<label for="mdp">Mot de passe</label>
+			<input id="mdp" name="mdp" type="password" placeholder="Votre mot de passe" autocomplete="current-password" />
+
+			<label for="profile">Profil</label>
+			<select id="profile" name="profile">
+				<option value="">-- Choisir un profil --</option>
+				<option value="admin">Administrateur</option>
+				<option value="user">Utilisateur</option>
+				<option value="guest">Invité</option>
+			</select>
+
+			<div class="actions">
+				<button type="submit">Connexion</button>
+				<button type="button" class="btn-secondary" id="clearBtn">Effacer</button>
+			</div>
+
+			<div class="error" id="formError"></div>
+			<div class="note">Connexion locale — pas d'envoi serveur inclus.</div>
+		</form>
+	</div>
+
+	<script>
+		(function(){
+			const form = document.getElementById('loginForm');
+			const ident = document.getElementById('identifiant');
+			const mdp = document.getElementById('mdp');
+			const profile = document.getElementById('profile');
+			const err = document.getElementById('formError');
+			const clearBtn = document.getElementById('clearBtn');
+
+			function showError(msg){ err.textContent = msg; err.style.display = msg ? 'block' : 'none'; }
+
+			form.addEventListener('submit', function(e){
+				e.preventDefault();
+				showError('');
+				if(!ident.value.trim()){ showError('Veuillez saisir votre identifiant.'); ident.focus(); return; }
+				if(!mdp.value){ showError('Veuillez saisir votre mot de passe.'); mdp.focus(); return; }
+				if(!profile.value){ showError('Veuillez choisir un profil.'); profile.focus(); return; }
+
+				const data = { identifiant: ident.value.trim(), profile: profile.value };
+				console.log('Tentative de connexion', data);
+				alert('Connexion simulée pour «'+data.identifiant+'» ('+profile.options[profile.selectedIndex].text+')');
+				form.reset();
+			});
+
+			clearBtn.addEventListener('click', function(){ form.reset(); showError(''); });
+		})();
+	</script>
+</body>
+</html>
+
