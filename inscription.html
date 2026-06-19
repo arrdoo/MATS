@@ -1,124 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Inscription</title>
-  <style>
-    :root{--bg:#f5f7fb;--card:#ffffff;--primary:#0f68d4;--primary-soft:#e7f0ff}
-    html,body{height:100%;margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;background:var(--bg)}
-    .page{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
-    .card{width:420px;background:var(--card);padding:28px;border-radius:14px;box-shadow:0 10px 28px rgba(17,33,73,.09)}
-    h1{font-size:22px;margin:0 0 18px;color:#12213d}
-    label{display:block;font-size:13px;color:#384659;margin-top:14px}
-    input,select{width:100%;padding:11px 13px;margin-top:6px;border:1px solid #d9e2ed;border-radius:8px;background:#fff;font-size:14px;box-sizing:border-box}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    .actions{margin-top:22px;display:flex;gap:12px}
-    button{flex:1;padding:12px 14px;border:0;border-radius:10px;background:var(--primary);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
-    .reset{background:var(--primary-soft);color:#0f4f95;border:1px solid #d7e5ff}
-    .error{display:none;margin-top:12px;color:#c7171f;font-size:13px}
-    .note{margin-top:12px;font-size:13px;color:#5f6d84;text-align:center}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscription Étudiant</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="page">
-    <form id="registerForm" class="card" novalidate>
-      <h1>Inscription</h1>
-      <div class="row">
-        <div>
-          <label for="prenom">Prénom</label>
-          <input id="prenom" name="prenom" type="text" placeholder="Prénom" autocomplete="given-name" />
-        </div>
-        <div>
-          <label for="nom">Nom</label>
-          <input id="nom" name="nom" type="text" placeholder="Nom" autocomplete="family-name" />
-        </div>
-      </div>
+  <header class="navbar">
+    <div class="nav-brand">Bibliothèque Universitaire</div>
+    <nav class="nav-links">
+      <a href="welcome.html">Home</a>
+      <a href="inscription.html">Inscription</a>
+      <a href="paiement.html">Paiement</a>
+      <a href="bulletin.html">Bulletin</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-      <label for="login">Login</label>
-      <input id="login" name="login" type="text" placeholder="Nom d'utilisateur" autocomplete="username" />
+  <main class="page-shell">
+    <section class="card form-card">
+      <h2>Inscription Étudiant</h2>
+      <form>
+        <label for="prenom">Prénom</label>
+        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom">
 
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" placeholder="Mot de passe" autocomplete="new-password" />
+        <label for="nom">Nom</label>
+        <input type="text" id="nom" name="nom" placeholder="Votre nom">
 
-      <div class="row">
-        <div>
-          <label for="profil">Profil</label>
-          <select id="profil" name="profil">
-            <option value="">-- Choisir un profil --</option>
-            <option value="client">Client</option>
-            <option value="admin">Administrateur</option>
-            <option value="moderateur">Modérateur</option>
-          </select>
-        </div>
-        <div>
-          <label for="sexe">Sexe</label>
-          <select id="sexe" name="sexe">
-            <option value="">-- Choisir le sexe --</option>
-            <option value="homme">Homme</option>
-            <option value="femme">Femme</option>
-            <option value="autre">Autre</option>
-          </select>
-        </div>
-      </div>
+        <label for="login">Login</label>
+        <input type="text" id="login" name="login" placeholder="Identifiant">
 
-      <label for="nationalite">Nationalité</label>
-      <select id="nationalite" name="nationalite">
-        <option value="">-- Choisir une nationalité --</option>
-        <option value="francaise">Française</option>
-        <option value="belge">Belge</option>
-        <option value="suisse">Suisse</option>
-        <option value="canadienne">Canadienne</option>
-        <option value="autre">Autre</option>
-      </select>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Mot de passe">
 
-      <div class="actions">
-        <button type="submit">Enregistrer</button>
-        <button type="button" class="reset" id="resetBtn">Effacer</button>
-      </div>
+        <label for="profil">Profil</label>
+        <select id="profil" name="profil">
+          <option value="etudiant">Étudiant</option>
+          <option value="professeur">Professeur</option>
+          <option value="personnel">Personnel</option>
+        </select>
 
-      <div class="error" id="formError"></div>
-      <p class="note">Formulaire local uniquement. Aucune donnée n'est envoyée au serveur.</p>
-    </form>
-  </div>
+        <label for="sexe">Sexe</label>
+        <select id="sexe" name="sexe">
+          <option value="f">Femme</option>
+          <option value="h">Homme</option>
+          <option value="autre">Autre</option>
+        </select>
 
-  <script>
-    const form = document.getElementById('registerForm');
-    const prenom = document.getElementById('prenom');
-    const nom = document.getElementById('nom');
-    const login = document.getElementById('login');
-    const password = document.getElementById('password');
-    const profil = document.getElementById('profil');
-    const sexe = document.getElementById('sexe');
-    const nationalite = document.getElementById('nationalite');
-    const error = document.getElementById('formError');
-    const resetBtn = document.getElementById('resetBtn');
+        <label for="matricule">Matricule</label>
+        <input type="text" id="matricule" name="matricule" placeholder="Numéro de matricule">
 
-    function showError(message) {
-      error.textContent = message;
-      error.style.display = message ? 'block' : 'none';
-    }
-
-    form.addEventListener('submit', function(event) {
-      event.preventDefault();
-      showError('');
-
-      if (!prenom.value.trim()) { showError('Veuillez saisir le prénom.'); prenom.focus(); return; }
-      if (!nom.value.trim()) { showError('Veuillez saisir le nom.'); nom.focus(); return; }
-      if (!login.value.trim()) { showError('Veuillez saisir le login.'); login.focus(); return; }
-      if (!password.value) { showError('Veuillez saisir le mot de passe.'); password.focus(); return; }
-      if (!profil.value) { showError('Veuillez choisir un profil.'); profil.focus(); return; }
-      if (!sexe.value) { showError('Veuillez choisir le sexe.'); sexe.focus(); return; }
-      if (!nationalite.value) { showError('Veuillez choisir la nationalité.'); nationalite.focus(); return; }
-
-      alert(`Inscription enregistrée : ${prenom.value.trim()} ${nom.value.trim()} (${login.value.trim()})`);
-      form.reset();
-    });
-
-    resetBtn.addEventListener('click', function() {
-      form.reset();
-      showError('');
-    });
-  </script>
+        <button type="submit" class="button btn-primary">Enregistrer</button>
+      </form>
+      <p class="form-note">Après validation, <a href="welcome.html">retournez à la page d'accueil</a>.</p>
+    </section>
+  </main>
 </body>
 </html>
