@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-brand">Bibliothèque Universitaire</div>
+    <nav class="nav-links">
+      <a href="welcome.html">Home</a>
+      <a href="inscription.html">Inscription</a>
+      <a href="paiement.html">Paiement</a>
+      <a href="bulletin.html">Bulletin</a>
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="card form-card">
+      <h2>Connexion</h2>
+      <form>
+        <label for="loginUser">Login</label>
+        <input type="text" id="loginUser" name="loginUser" placeholder="Identifiant">
+
+        <label for="passwordUser">Password</label>
+        <input type="password" id="passwordUser" name="passwordUser" placeholder="Mot de passe">
+
+        <label for="profilUser">Profil</label>
+        <select id="profilUser" name="profilUser">
+          <option value="etudiant">Étudiant</option>
+          <option value="professeur">Professeur</option>
+          <option value="personnel">Personnel</option>
+        </select>
+
+        <button type="submit" class="button btn-primary">Connexion</button>
+      </form>
+      <p class="form-note">Cliquez ici pour <a href="inscription.html">créer un compte</a>.</p>
+    </section>
+  </main>
+</body>
+</html>
